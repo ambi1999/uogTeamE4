@@ -1,12 +1,10 @@
 /**
+ * @author      Callum Miller <callum.miller70@gmail.com>
  * @version     1.0                 (current version number of program)
  * @since     25 Feb 2014
- * This program has been modified by xyz.
  */
-// March 2014 - xyz - Modified the code to implement the  abc feature
-//replace xyz with your name and abc with the name of feature
 
-import glos.IO;
+
 
 import java.io.BufferedReader;
 import java.io.OutputStream;
@@ -20,27 +18,28 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
 public class SendEmail {
 
 	static BufferedReader input;
+
+	int test =0;
 
 	static OutputStream output;
 
 	static String from = "";
 	static String password = "";
-	static String[] to = { "ajayal@glos.ac.uk" }; // list of recipient email
-	// addresses
-	static String host = "";
-	static String portformail = "";
+	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk" }; // list of recipient email addresses
+	static String host="";
+	static String portformail="";
 
-	private static void sendFromGMail(String host, String port, String from,
-			String pass, String[] to, String subject, String body) {
+
+	private static void sendFromGMail(String host, String port, String from, String pass, String[] to, String subject, String body) {
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", port);
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.socketFactory.class",
-				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 
 		Session session = Session.getDefaultInstance(props);
 		MimeMessage message = new MimeMessage(session);
@@ -50,11 +49,11 @@ public class SendEmail {
 			InternetAddress[] toAddress = new InternetAddress[to.length];
 
 			// To get the array of addresses
-			for (int i = 0; i < to.length; i++) {
+			for( int i = 0; i < to.length; i++ ) {
 				toAddress[i] = new InternetAddress(to[i]);
 			}
 
-			for (int i = 0; i < toAddress.length; i++) {
+			for( int i = 0; i < toAddress.length; i++) {
 				message.addRecipient(Message.RecipientType.TO, toAddress[i]);
 			}
 
@@ -66,23 +65,37 @@ public class SendEmail {
 			transport.close();
 			System.out.println("Email sent successfully");
 
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception{
 
-		from = IO.readString("Enter User Name");
-		password = IO.readString("Enter Password");
-		host = IO
-				.readString("Enter host, For gmail enter smtp.gmail.com, For yahoo enter smtp.mail.yahoo.com");
-		portformail = IO
-				.readString("Enter port for mail. Enter 465. If this does not work then try 587");
+		Scanner sc= new Scanner(System.in);
+		//from = sc.next();
+		from = "sir.robot4003@gmail.com";
+				
 
-		String subject = "TEST =" + "EMAIL ";
-		String body = "KEEP CALM AND START PROGRAMMING" + new Date().getTime();
+
+		
+		//password = sc.next();
+		password = "sirrobot4003";
+				
+
+
+		
+		//host = sc.next();
+		host = "smtp.gmail.com";
+				
+		
+		//portformail = sc.next();
+		portformail = "465";
+				
+		String subject = "INTRUDER ALERT" ;
+		String body = "INTRUDER DETECTED at *Address*"; //Ask Ambi about date and time
 		sendFromGMail(host, portformail, from, password, to, subject, body);
 
 	}
