@@ -10,6 +10,7 @@ void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
   pinMode(led, OUTPUT);
+  
 }
 
 void loop() {
@@ -25,6 +26,7 @@ void loop() {
   digitalWrite(led,LOW);
 }
   else {
+   Serial.print(distance);
     digitalWrite(led,HIGH);
     for (int i = 0; i < numTones; i++)
   {
@@ -34,12 +36,6 @@ void loop() {
   noTone(speakerPin);
   
   }
-    if (distance >= 200 || distance <= 0){
-    Serial.println("Out of range");
-  }
-  else {
-    Serial.print(distance);
-    Serial.println(" cm");
-  }
+  
   
 }

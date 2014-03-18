@@ -1,13 +1,9 @@
-/**
- * @author      Callum Miller <callum.miller70@gmail.com>
- * @version     1.0                 (current version number of program)
- * @since     25 Feb 2014
- */
-
-
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
 
 import java.io.BufferedReader;
-import java.io.OutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
@@ -19,21 +15,62 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-public class SendEmail {
+public class IntruderAlarm {
+	static InputStream  input;
 
-	static BufferedReader input;
-
-	int test =0;
-
-	static OutputStream output;
-
-	static String from = "";
-	static String password = "";
+	static String from = "sir.robot4003@gmail.com";
+	static String password = "sirrobot4003";
 	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk", "kallzeh@live.co.uk" }; // list of recipient email addresses
-	static String host="";
-	static String portformail="";
-
-
+	static String host="smtp.gmail.com";
+	static String portformail="465";
+	
+	//This function will read value from serial port and send email if the value is more than 400
+	 	public static void readFromArduino() throws Exception {
+	 		// for linux
+	 		// CommPortIdentifier portId =
+	 		// CommPortIdentifier.getPortIdentifier("/dev/ttyACM3");
+	 
+	 		// for windows
+	 		CommPortIdentifier portId = CommPortIdentifier
+	 				.getPortIdentifier("COM3");
+	 		// CommPortIdentifier portId =
+	 		// CommPortIdentifier.getPortIdentifier("COM4");
+	 
+	 		SerialPort port = (SerialPort) portId.open("serial talk", 4000);
+	 		// input = port.getInputStream();
+	 		input = port.getInputStream();
+	 		port.setSerialPortParams(9600, SerialPort.DATABITS_8,
+	 				SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+	 		System.out.println("input " + input);
+	 		while (true) {
+	 
+	 			try {
+	 				
+	 				if (input.available() > 0) {
+	 					
+	 					// System.out.println(inputLine);
+	 					int value = input.read();
+	 
+	 					System.out.println(value);
+	 					if (value <= 50) {
+	 						String subject = "INTRUDER ALERT" ;
+	 						String body = "INTRUDER DETECTED at *Address*";
+	 						sendFromGMail(host, portformail, from, password, to, subject, body);
+	 
+	 					}
+	 				}
+	 			} catch (Exception ex) {
+	 				ex.printStackTrace();
+	 			}
+	 			
+	 		
+	 		}
+	 		
+	 		
+	 
+	 	}
+	 
+	
 	private static void sendFromGMail(String host, String port, String from, String pass, String[] to, String subject, String body) {
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host);
@@ -74,29 +111,11 @@ public class SendEmail {
 
 	public static void main(String[] args) throws Exception{
 
-		Scanner sc= new Scanner(System.in);
-		//from = sc.next();
-		from = "sir.robot4003@gmail.com";
-				
-
-
+		readFromArduino();
 		
-		//password = sc.next();
-		password = "sirrobot4003";
-				
-
-
 		
-		//host = sc.next();
-		host = "smtp.gmail.com";
-				
-		
-		//portformail = sc.next();
-		portformail = "465";
-				
-		String subject = "INTRUDER ALERT" ;
-		String body = "INTRUDER DETECTED at *Address*";
-		sendFromGMail(host, portformail, from, password, to, subject, body);
 
 	}
+	
+	
 }
