@@ -32,7 +32,7 @@ public class ArduinoController {
 
 	static String from = "";
 	static String password = "";
-	static String[] to = { "ajayal@glos.ac.uk" }; // list of recipient email
+	static String[] to = { "callum.miller70@gmail.com" }; // list of recipient email
 	// addresses
 	static String host = "";
 	static String portformail = "";
@@ -65,7 +65,7 @@ public class ArduinoController {
 					int value = Integer.parseInt(inputLine);
 
 					System.out.println(value);
-					if (value > 400) {
+					if (value <= 50) {
 						String subject = "ALERT VAL =" + value;
 						String body = "Welcome to Ct4003 class"
 								+ new Date().getTime();
@@ -81,31 +81,6 @@ public class ArduinoController {
 
 	}
 
-	//This function will write values fo serial port
-	public static void sendToArduino(int command) {
-		// for linux
-		// CommPortIdentifier portId =
-		// CommPortIdentifier.getPortIdentifier("/dev/ttyACM3");
-		// for windows
-		try {
-			CommPortIdentifier portId = CommPortIdentifier
-					.getPortIdentifier("COM3");
-
-			SerialPort port = (SerialPort) portId.open("serial talk", 4000);
-
-			output = port.getOutputStream();
-			port.setSerialPortParams(9600, SerialPort.DATABITS_8,
-					SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-
-			output.write((command + "").getBytes());
-			output.flush();
-			port.close();
-		} catch (Exception ex) {
-			// ex.printStackTrace();
-			System.out.println("Sorry, there is no port. Modify port please. ");
-
-		}
-	}
 
 	private static void sendFromGMail(String host, String port, String from,
 			String pass, String[] to, String subject, String body) {
@@ -144,41 +119,8 @@ public class ArduinoController {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		
-		//configuring email settings
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter user name");
-		from = sc.next();
-
-		System.out.println("Enter password");
-		password = sc.next();
-
-		System.out
-		.println("Enter host, For gmail enter smtp.gmail.com, For yahoo enter smtp.mail.yahoo.com");
-		host = sc.next();
-
-		System.out
-		.println("Enter port for mail. Enter 465. If this does not work then try 587");
-		portformail = sc.next();
-
-		
-		//This following function readFromArduino() will read value from serial port and send email if the value is more than 400.
-		//Uncomment the following line if you want to continuously read value from serial port and send email if value is more than 400.
-		// readFromArduino();
-
-		String subject = "ALERT VAL =" + "testing";
-		String body = "Welcome to Ct4003 class" + new Date().getTime();
-		sendFromGMail(host, portformail, from, password, to, subject, body);
-
-		//Uncomment the code below if you want to send commands to Arduino through port.
-		/*
-		 * while(true){ Scanner reader = new Scanner(System.in);
-		 * System.out.println("Enter the command"); //get user input for a int
-		 * command=reader.nextInt(); System.out.println("**** Sending ["+command
-		 * + "]"); sendToArduino(command); }
-		 */
+	
 
 	}
 
-}
+

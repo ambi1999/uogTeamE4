@@ -95,7 +95,7 @@ public class SendEmail {
 		portformail = "465";
 				
 		String subject = "INTRUDER ALERT" ;
-		String body = "INTRUDER DETECTED at *Address*"; //Ask Ambi about date and time
+		String body = "INTRUDER DETECTED at *Address*";
 		sendFromGMail(host, portformail, from, password, to, subject, body);
 
 	}

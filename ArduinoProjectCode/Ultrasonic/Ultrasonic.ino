@@ -29,17 +29,17 @@ void loop() {
     for (int i = 0; i < numTones; i++)
   {
     tone(speakerPin, tones[i]);
-    delay(500);
+    delay(100);
   }
   noTone(speakerPin);
   
   }
-  if (distance >= 200 || distance <= 0){
+    if (distance >= 200 || distance <= 0){
     Serial.println("Out of range");
   }
   else {
     Serial.print(distance);
     Serial.println(" cm");
   }
-  delay(500);
+  
 }
