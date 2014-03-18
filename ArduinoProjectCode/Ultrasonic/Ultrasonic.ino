@@ -21,7 +21,7 @@ void loop() {
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 50;
-  if (distance < 4) {  // This is where the LED On/Off happens
+  if (distance > 50) {  // This is where the LED On/Off happens
   digitalWrite(led,LOW);
 }
   else {
