@@ -29,7 +29,7 @@ public class SendEmail {
 
 	static String from = "";
 	static String password = "";
-	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk" }; // list of recipient email addresses
+	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk", "kallzeh@live.co.uk" }; // list of recipient email addresses
 	static String host="";
 	static String portformail="";
 
