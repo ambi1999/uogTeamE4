@@ -18,21 +18,26 @@ import javax.mail.internet.MimeMessage;
 public class IntruderAlarm {
 	static InputStream  input;
 
-	static String from = "sir.robot4003@gmail.com";//sender email
-	static String password = "sirrobot4003";//sender password
+	static String from = "sir.robot4003@gmail.com";
+	static String password = "sirrobot4003";
 	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk"}; // list of recipient email addresses
-	static String host="smtp.gmail.com";//host
-	static String portformail="465";//port
+	static String host="smtp.gmail.com";
+	static String portformail="465";
 	
-	//This function will read value from serial port and send email if the value is less than 50
+	//This function will read value from serial port and send email if the value is more than 400
 	 	public static void readFromArduino() throws Exception {
+	 		// for linux
+	 		// CommPortIdentifier portId =
+	 		// CommPortIdentifier.getPortIdentifier("/dev/ttyACM3");
 	 
 	 		// for windows
 	 		CommPortIdentifier portId = CommPortIdentifier
-	 				.getPortIdentifier("COM3");//serial port ID
-	 		
-	 		SerialPort port = (SerialPort) portId.open("serial talk", 4000);//opens serial port
-	 		
+	 				.getPortIdentifier("COM4");
+	 		// CommPortIdentifier portId =
+	 		// CommPortIdentifier.getPortIdentifier("COM4");
+	 
+	 		SerialPort port = (SerialPort) portId.open("serial talk", 4000);
+	 		// input = port.getInputStream();
 	 		input = port.getInputStream();
 	 		port.setSerialPortParams(9600, SerialPort.DATABITS_8,
 	 				SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
@@ -43,16 +48,15 @@ public class IntruderAlarm {
 	 				
 	 				if (input.available() > 0) {
 	 					
-	 					
+	 					// System.out.println(inputLine);
 	 					int value = input.read();
 	 
 	 					System.out.println(value);
-	 					if (value <= 50) { //if value less than or equal 50cm send email
+	 					if (value <= 50) {
 	 						String subject = "INTRUDER ALERT" ;
 	 						String body = "INTRUDER DETECTED at *Address*";
 	 						sendFromGMail(host, portformail, from, password, to, subject, body);
-	 						//message
-	 						
+	 
 	 					}
 	 				}
 	 			} catch (Exception ex) {
@@ -108,7 +112,6 @@ public class IntruderAlarm {
 	public static void main(String[] args) throws Exception{
 
 		readFromArduino();
-		//reads the code in Arduino
 		
 		
 

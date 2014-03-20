@@ -25,7 +25,7 @@ void loop() {
   digitalWrite(trigPin, LOW); //trig low
   duration = pulseIn(echoPin, HIGH); //echo high
   distance = (duration/2) / 50; //works out distance
-  if (distance >= 50) {  // This is where the LED On/Off happens
+  if (distance > 50) {  // This is where the LED On/Off happens
   digitalWrite(led,LOW); //if more than 50 led is off
 }
 //this part of code sends out the ultrasonic waves and bounces back to sensor to read distance
