@@ -20,15 +20,12 @@ public class IntruderAlarm {
 
 	static String from = "sir.robot4003@gmail.com";
 	static String password = "sirrobot4003";
-	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk", "kallzeh@live.co.uk" }; // list of recipient email addresses
+	static String[] to = { "callum.miller70@gmail.com", "jennysayshi@hotmail.co.uk", "walleyer@hotmail.co.uk"}; // list of recipient email addresses
 	static String host="smtp.gmail.com";
 	static String portformail="465";
 	
 	//This function will read value from serial port and send email if the value is more than 400
 	 	public static void readFromArduino() throws Exception {
-	 		// for linux
-	 		// CommPortIdentifier portId =
-	 		// CommPortIdentifier.getPortIdentifier("/dev/ttyACM3");
 	 
 	 		// for windows
 	 		CommPortIdentifier portId = CommPortIdentifier
