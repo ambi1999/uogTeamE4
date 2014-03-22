@@ -1,0 +1,13 @@
+int motor_pin1 = 12;                 //define the pins to which motor wires are connected
+int motor_pin2 = 8;
+void setup ()
+{
+  pinMode(motor_pin1,OUTPUT);            // set the motor pins as output
+  pinMode(motor_pin2,OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(motor_pin1,300);
+  digitalWrite(motor_pin2,250);
+}
